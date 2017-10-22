@@ -46,9 +46,8 @@ extern void config();
 extern void avoid();
 extern void cycle_print(char*);
 extern void read_sensors(int);
-extern void mission_accomplished();
+extern void is_mission_accomplished();
 extern void detect_colors();
-extern void make_aware();
 
 /**
  * Tasks
