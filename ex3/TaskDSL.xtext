@@ -1,0 +1,68 @@
+grammar ev3rtLego.TaskDSL with org.eclipse.xtext.common.Terminals
+
+generate taskDSL "http://www.TaskDSL.ev3rtLego"
+
+Mission: 'Mission' name=ID
+		 'Behaviors:' behaviours += Behaviour+;
+		 
+Behaviour: name = ID
+	      ('Conditions:' conditions += Condition*)?
+	      'Actions:' actions += Action+
+;
+
+Condition: sensor = Sensor
+		   operator = CompareOperator
+		   (state = State |color = Color | distance = Distance)
+;
+
+enum Sensor: 
+	TOUCH = "touch" | 
+	COLOR = "color" | 
+	ULTRA = "ultra" ;
+
+enum CompareOperator: 
+	EQ  = '==' |
+	NEQ = "!=" |
+	G   = ">"  |
+	L   = "<"  |
+	GEQ = ">=" |
+	SEQ = "<=" ;
+	
+enum State: 
+	PRESSED    = "pressed"   |
+	NOTPRESSED = "notpressed";
+	
+enum Color: 
+	BLACK  = 'black' |
+	RED    = 'red'   |
+	YELLOW = 'yellow'|
+	BLUE   = 'blue'  |
+	WHITE  = 'white' ;
+
+Distance: INT 'cm';
+
+Action: Move | Turn | Sound | Led;
+
+Move: 'Move' direction = Direction;
+
+Turn: 'Turn' direction = Direction;
+
+Sound: 'Sound' duration = Duration 
+			   frequency = Frequency;
+
+Led: 'Led' ledColor = LedColor;
+			   
+Duration: INT 'ms';
+
+enum Direction:
+		LEFT     = 'left'    |
+		RIGHT    = 'right'   |
+		FORWARD  = 'forward' |
+		BACKWARD = 'backward';
+
+Frequency: INT 'Hz';
+
+enum LedColor: 
+	RED    = 'red'   |
+	GREEN  = 'green' |
+	ORANGE = 'orange';
